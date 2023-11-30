@@ -1,0 +1,33 @@
+// Funzione per fare la richiesta GET all'API
+function fetchData() {
+  // URL dell'API e parametri della query
+  const apiUrl = 'URL API';
+  
+  // Esegui la richiesta GET usando Fetch API
+  fetch(apiUrl)
+    .then(response => {
+      // Controlla lo stato della risposta
+      if (!response.ok) {
+        throw new Error('Errore nella richiesta');
+      }
+      // Converti la risposta in formato JSON
+      return response.json();
+    })
+    .then(data => {
+      // Manipola i dati ottenuti dall'API
+      const datoInteressante = data.dato; // Sostituisci 'dato' con il campo che ti interessa
+
+      // Aggiorna il campo nel sito web con il dato ottenuto
+      document.getElementById('campoDaAggiornare').innerText = datoInteressante;
+    })
+    .catch(error => {
+      // Gestisci gli errori durante la richiesta
+      console.error('Si è verificato un errore:', error);
+    });
+}
+
+// Chiamata iniziale alla funzione fetchData all'avvio del sito
+fetchData();
+
+// Esegui la funzione fetchData ogni settimana (ogni 604800000 millisecondi)
+setInterval(fetchData, 604800000); 
